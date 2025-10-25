@@ -22,7 +22,6 @@ export function middleware(request) {
   const response = NextResponse.next();
   const locale = request.cookies.get("locale")?.value || "en";
 
-  // If locale cookie doesn't exist, set it
   if (!request.cookies.get("locale")) {
     response.cookies.set("locale", locale, {
       path: "/",
@@ -32,12 +31,7 @@ export function middleware(request) {
     });
   }
 
-  const url = request.nextUrl.clone();
-  if (!url.pathname.startsWith(`/${locale}`)) {
-    url.pathname = `/${locale}${url.pathname}`;
-    return NextResponse.redirect(url);
-  }
-
+  // ✅ Don't redirect to /en — just continue normally
   return response;
 }
 
