@@ -1,0 +1,33 @@
+{
+  "name": "Vinita_AI",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@use-gesture/react": "^10.3.1",
+    "axios": "^1.12.2",
+    "framer-motion": "^12.23.24",
+    "i18n-iso-countries": "^7.14.0",
+    "next": "15.5.3",
+    "next-intl": "^4.3.9",
+    "next-pwa": "^5.6.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
+    "react-slick": "^0.31.0",
+    "slick-carousel": "^1.8.1",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.3",
+    "tailwindcss": "^4"
+  }
+}

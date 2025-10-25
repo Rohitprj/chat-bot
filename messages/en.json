@@ -1,0 +1,140 @@
+{
+  "HomePage": {
+    "about": "Spiritual Guide",
+    "about1": "and Bestselling Author"
+  },
+  "Follow": {
+    "text": "VinitaSri",
+    "text1": "is the diksha name given to",
+    "text2": "Vinita Rashinkar by her revered Guruji.",
+    "text3": "She is a spiritual healer, writer, speaker and wellness expert, the Founding Director of Sri Chakra Yantra Foundation and organisation created with the intention of bringing individuals and organisations together to improve health and well-being, cultivate spiritual knowledge, expand consciousness and provide authentic information about Tantra and Sri Vidya as outlined in the Hindu Scriptures."
+  },
+  "Meet": {
+    "heading": "Connect with VinitaSri",
+    "text": "VinitaSri has spent years immersed in the path of Sri Vidya sadhana—a journey of spiritual practice and inner transformation. Her calling now is to share this light with others. If you are ready to uncover your highest version, she invites you to connect with her and allow her to guide you on your spiritual path."
+  },
+  "Chat": {
+    "chat": "This is your mindful space.",
+    "chat1": "Ask questions, share how you feel,",
+    "chat2": " or explore practices for",
+    "chat3": "peace and balance.",
+    "chat4": "Ask me anything."
+  },
+  "Chatagain": {
+    "user": "How meditation can help me in my daily routine?",
+    "bot": "Meditation helps with attention span, allowing you to stay focused longer. Enhanced willpower: Meditation develops the mental discipline needed to avoid unhelpful habits. Better sleep: Meditation can shorten the time it takes to fall asleep and improve sleep quality."
+  },
+  "register": {
+    "text": "I would need some more details",
+    "text1": "about you to proceed further on this",
+    "text2": "spiritual journey.",
+    "Form": {
+      "name": "Enter Name",
+      "email": "Email",
+      "phone": "Phone",
+      "age":"Age",
+      "gender":"Select Gender",
+      "city": "Select City",
+      "country": "Select Country",
+      "books": "Book(s) Selected",
+      "selectedBooks": "Select books you’ve already read"
+    },
+    "Gender": {
+      "Male": "Male",
+      "Female": "Female",
+      "Others": "Others"
+    },
+    "Cities": {
+      "delhi": "Delhi",
+      "mumbai": "Mumbai",
+      "bangalore": "Bangalore"
+    },
+    "Countries": {
+      "india": "India",
+      "usa": "USA",
+      "uk": "UK"
+    },
+    "Books": {
+      "cosmicSymphony": "Cosmic Symphony",
+      "tantra": "Tantra",
+      "dasaMahavidya": "Dasa Mahavidya",
+      "chakras": "Chakras",
+      "sriChakraYantra": "Sri Chakra Yantra",
+      "sriVidya": "Sri Vidya"
+    },
+    "Confirm": {
+      "ConfirmEmail": "Please check your email and confirm ",
+      "ConfirmEmail1": "your email account. "
+    }
+  },
+  "Login": {
+    "text": "This is your sacred space, please set",
+    "text1": "your password now.",
+    "placeholder": "Enter your email"
+  },
+  "Back": {
+    "button": "Back"
+  },
+  "Footer": {
+    "text": "powered by"
+  },
+  "button": {
+    "explore": "Explore",
+    "books": "Books",
+    "follow": "Follow",
+    "meet": "Meet",
+    "submit": "Submit",
+    "continue": "Continue"
+  },
+  "Profile": {
+    "header": "Profile",
+    "spiritualJourney": "Spiritual Journey",
+    "spiritualGoals": "Spiritual Goals",
+    "achievement": "Achievement",
+    "favouriteTopics": "Favourite Topics",
+    "footerQuote": "Your spiritual journey is unique. Trust the process, embrace the growth, and remember that every step forward is sacred.",
+    "footerAuthor": "- Your Inner Wisdom",
+    "stats": {
+      "questionsAsked": "Questions Asked",
+      "daysActive": "Days Active",
+      "currentStreak": "Current Streak",
+      "hoursMeditated": "Hours Meditated"
+    },
+    "progress": {
+      "dailyMeditation": "Daily Meditation",
+      "mantraPractice": "Mantra Practice",
+      "spiritualReading": "Spiritual Reading",
+      "days": "days",
+      "complete": "% complete"
+    },
+    "achievements": {
+      "firstSteps": "First Steps",
+      "firstStepsDesc": "Completed first meditation",
+      "consistentPractice": "Consistent Practice",
+      "consistentPracticeDesc": "7-day meditation streak",
+      "deepWisdom": "Deep Wisdom",
+      "deepWisdomDesc": "Asked 50 spiritual questions",
+      "devotedSeeker": "Devoted Seeker",
+      "devotedSeekerDesc": "30-day practice streak"
+    },
+    "topics": {
+      "topic1": "Srividya",
+      "topic2": "Meditation",
+      "topic3": "Chakras",
+      "topic4": "Mantras",
+      "topic5": "Sri Yantra",
+      "topic6": "Devotion"
+    },
+    "Navigation": {
+      "Shop": "Shop",
+      "Books": "Books",
+      "Follow": "Follow",
+      "Meet": "Meet",
+      "Profile": "Profile"
+    },
+    "Name": {
+      "Spiritual Seeker": "Spiritual Seeker",
+      "Member since December 2024": "Member since December 2024"
+    }
+  }
+}

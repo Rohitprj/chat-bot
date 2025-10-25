@@ -1,0 +1,29 @@
+<svg width="303" height="249" viewBox="0 0 303 249" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g opacity="0.2" filter="url(#filter0_n_415_3337)">
+<ellipse cx="151.5" cy="98.5" rx="151.5" ry="38.5" fill="white"/>
+</g>
+<ellipse opacity="0.3" cx="151.284" cy="98.5" rx="82.2843" ry="38.5" fill="white"/>
+<ellipse opacity="0.3" cx="151.5" cy="98.5" rx="98.5" ry="38.5" fill="white"/>
+<ellipse opacity="0.3" cx="151.5" cy="98.5" rx="120.5" ry="38.5" fill="white"/>
+<circle opacity="0.5" cx="152" cy="98" r="50" fill="white"/>
+<circle opacity="0.5" cx="152" cy="-2" r="50" fill="white"/>
+<circle opacity="0.5" cx="152" cy="199" r="50" fill="white"/>
+<defs>
+<filter id="filter0_n_415_3337" x="0" y="60" width="303" height="77" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="2 2" stitchTiles="stitch" numOctaves="3" result="noise" seed="5934" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(0, 0, 0, 0.25)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect1_noise_415_3337">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+</defs>
+</svg>
