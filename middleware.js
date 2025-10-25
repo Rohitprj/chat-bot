@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  const locale = request.cookies.get("locale")?.value || "en";
+  const locale = request.cookies.get("locale")?.value || "/";
 
   const url = request.nextUrl.clone();
   if (!url.pathname.startsWith(`/${locale}`)) {
@@ -13,5 +13,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)"], 
+  matcher: ["/((?!_next|.*\\..*).*)"],
 };
