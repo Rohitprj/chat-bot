@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import createMiddleware from "next-intl/middleware";
 
 export function middleware(request) {
   const locale = request.cookies.get("locale")?.value || "en";
@@ -11,6 +12,12 @@ export function middleware(request) {
 
   return NextResponse.next();
 }
+
+export default createMiddleware({
+  locales: ["en"], // Only one locale
+  defaultLocale: "en",
+  localePrefix: "never", // 👈 disables `/en` in the URL
+});
 
 export const config = {
   matcher: ["/((?!_next|.*\\..*).*)"],
