@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 
 export function middleware(request) {
-  const locale = request.cookies.get("locale")?.value || "en";
+  const locale =
+    request.cookies.get("chat-bot-umber-rho.vercel.app")?.value || "en";
 
   const url = request.nextUrl.clone();
   if (!url.pathname.startsWith(`/${locale}`)) {
