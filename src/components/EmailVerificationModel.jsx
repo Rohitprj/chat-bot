@@ -69,31 +69,32 @@ export const VerificationModal = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center p-4 z-50 transition-opacity duration-300 ${overlayClasses}`}
+      className={`fixed inset-0 flex items-center justify-center p-4 z-50 transition-opacity bg-black/70 duration-300 ${overlayClasses}`}
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
-      {/* Modal Content Container */}
       <div
-        className={`bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 sm:p-8 transform transition-all duration-300 ${contentClasses}`}
+        className={`bg-white rounded-xl shadow-xl max-w-xs w-full p-4 sm:p-6 transform transition-all duration-300 ${contentClasses}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex justify-between items-start mb-4 border-b pb-4">
+        <div className="flex justify-between items-start mb-4 border-b pb-3">
           <h3
             id="modal-title"
-            className="text-2xl font-bold text-green-600 flex items-center"
-          >
+            class="text-2xl font-bold flex items-center">
             <CheckIcon />
+          <span className="text-2xl font-bold  
+            bg-gradient-to-r from-[#FF88A5] to-[#FCBB90]  bg-clip-text text-transparent" >            
             Action Required
-          </h3>
+          </span>
+        </h3>
 
           {/* Close Button (X icon) */}
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-700 p-1 rounded-full transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="text-gray-400 hover:text-gray-700 p-1 rounded-full transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
             aria-label="Close modal"
           >
             <XIcon />
@@ -101,8 +102,8 @@ export const VerificationModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Modal Body */}
-        <p className="text-gray-700 text-lg mb-6 leading-relaxed">
-          <span className="font-semibold text-indigo-600">
+        <p className="text-gray-700 text-base mb-6 leading-relaxed">
+          <span className="font-semibold text-black">
             Verification Link Sent!
           </span>{" "}
           Please go to your Gmail to click the verification link and complete
@@ -110,10 +111,10 @@ export const VerificationModal = ({ isOpen, onClose }) => {
         </p>
 
         {/* Modal Footer / Primary Action */}
-        <div className="text-right">
+        <div className="text-center">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-6 py-3 bg-indigo-500 text-white font-medium rounded-lg shadow-md hover:bg-indigo-600 transition duration-150 focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50"
+            className="w-full sm:w-auto px-4 py-2 text-white bg-gradient-to-r from-[#FF88A5] to-[#FCBB90] h-10 rounded-full font-medium shadow-md hover:bg-indigo-600 transition duration-150 focus:outline-none cursor-pointer"
           >
             Got it!
           </button>

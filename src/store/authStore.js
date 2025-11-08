@@ -14,7 +14,7 @@ export const useAuthStore = create(
         try {
           set({ loading: true });
           const res = await authServices.register(data);
-          console.log("Zustand Response", res);
+          // console.log("Zustand Response", res);
           set({ loading: false, success: res.success });
         } catch (error) {
           set({
@@ -27,7 +27,7 @@ export const useAuthStore = create(
         try {
           set({ loading: true });
           const res = await authServices.verify(token);
-          console.log("Zustand Verify", res);
+          // console.log("Zustand Verify", res);
           set({ loading: false, success: res.success });
         } catch (error) {
           set({
@@ -40,7 +40,7 @@ export const useAuthStore = create(
         try {
           set({ loading: true });
           const res = await authServices.login(data);
-          console.log("Zustand Login", res);
+          // console.log("Zustand Login", res);
           localStorage.setItem("token", res.token);
           set({
             user: res.user,
@@ -50,7 +50,7 @@ export const useAuthStore = create(
           });
         } catch (error) {
           set({
-            error: err.response?.data?.message || "Login failed",
+            error: error.response?.data?.message || "Login failed",
             loading: false,
           });
         }

@@ -2,26 +2,38 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Footer from "./Footer";
-import { IoChatbubbleOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
+import Link from "next/link";
 
 export default function Hero() {
   const t = useTranslations("HomePage");
   const tbutton = useTranslations("button");
-  const router = useRouter();
+  const p = useTranslations("Footer");
   return (
-    <main className="flex justify-center items-center h-screen bg-gray-100 overflow-hidden">
-      <div className="relative w-[425px] h-full bg-[#F6EFE8] shadow-lg overflow-hidden flex items-end">
-        <div
-          onClick={() => router.push("/chat")}
-          className="absolute right-4 top-2"
+    <main className="relative flex justify-center items-center h-screen bg-gray-100 overflow-hidden">
+      <div className="relative w-[425px] h-screen bg-[#F6EFE8] shadow-lg overflow-hidden flex items-end">
+ 
+        <Link
+          href="https://www.shunyawellness.com"
+          target="_blank"
+          className="absolute top-1 right-1 flex items-center gap-1  backdrop-blur-md px-2 py-1 rounded-full"
         >
-          <IoChatbubbleOutline
-            size={36}
-            className="text-orange-500 cursor-pointer bg-white/70 rounded-xl"
-          />
-        </div>
+          <span className="text-sm sm:text-base font-semibold text-gray-400">
+            {p("text")}
+          </span>
+          <div className="relative w-8 h-8">
+            <Image
+              src="/0.png"
+              alt="Powered by Icon"
+              fill
+              priority
+              sizes="(max-width: 425px) 100vw, 425px"
+              className="object-contain"
+            />
+          </div>
+        </Link>
+
         <div className="absolute top-8 sm:top-8 left-0 w-full h-[43%]  sm:h-[46%]   opacity-10">
           <Image
             src="/bg.svg"
@@ -60,7 +72,7 @@ export default function Hero() {
         <div className="absolute bottom-0 z-20 mx-auto w-full ">
           {/* Back */}
           <div className="mx-auto mb-5">
-            <Button link="/book" name={tbutton("explore")} />
+            <Button link="/chat" name={tbutton("chat")} />
           </div>
           <div>
             <Footer />

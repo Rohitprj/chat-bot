@@ -37,7 +37,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-// ✅ Response Interceptor
+// Response Interceptor
 axiosInstance.interceptors.response.use(
   (response) => {
     // 🔹 Save guestId from backend (first-time guest session)

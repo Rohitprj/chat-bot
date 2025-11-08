@@ -12,7 +12,7 @@ export const useChatStore = create((set) => ({
       set({ loading: true, error: null });
       const res = await chatServices.chatQuery({ question: data.content });
 
-      console.log("Zustand chat res", res);
+      // console.log("Zustand chat res", res);
       localStorage.setItem("guestId", res.guestId);
 
       const answer = res?.currentAnswer?.answer || "No response found.";
@@ -45,7 +45,7 @@ export const useChatStore = create((set) => ({
         });
       }
 
-      console.log("Zustand error", JSON.stringify(error, null, 2));
+      // console.log("Zustand error", JSON.stringify(error, null, 2));
     }
   },
 

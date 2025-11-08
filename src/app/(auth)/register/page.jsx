@@ -1,42 +1,34 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { FaUser, FaBirthdayCake, FaEnvelope, FaChevronDown } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaChevronDown, FaPhoneAlt } from "react-icons/fa";
 import Footer from "@/components/Footer";
-import Image from "next/image";
-import Back from "@/components/Back";
 import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/store/authStore";
 import { VerificationModal } from "@/components/EmailVerificationModel";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
 countries.registerLocale(enLocale);
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 export default function Register() {
   const t = useTranslations("register");
+  const button = useTranslations("button");
+  const { register, loading, error, success } = useAuthStore();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [age, setAge] = useState("");
-  // console.log("AGE =", age);
-  const [cityOpen, setCityOpen] = useState(false);
-  const [genderOpen, setGenderOpen] = useState(false);
-  const [countryOpen, setCountryOpen] = useState(false);
-  const [bookOpen, setBookOpen] = useState(false);
-  
-  const [selectedCity, setSelectedCity] = useState("");
+  const [age, setAge] = useState({ day: "", month: "", year: "" });
   const [selectedGender, setSelectedGender] = useState("");
-  // console.log("Gender", selectedGender);
+  const [selectedCity, setSelectedCity] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedBooks, setSelectedBooks] = useState([]);
-  const button = useTranslations("button");
-  const cities = [t("Cities.delhi"), t("Cities.mumbai"), t("Cities.bangalore")];
-  const gender = [t("Gender.Male"), t("Gender.Female"), t("Gender.Others")];
-  // const countries = [
-  //   t("Countries.india"),
-  //   t("Countries.usa"),
-  //   t("Countries.uk"),
-  // ];
+  const [genderOpen, setGenderOpen] = useState(false);
+  const [bookOpen, setBookOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const gender = [t("Gender.Male"), t("Gender.Female"), t("Gender.Others")];
   const books = [
     t("Books.cosmicSymphony"),
     t("Books.tantra"),
@@ -44,205 +36,213 @@ export default function Register() {
     t("Books.chakras"),
     t("Books.sriChakraYantra"),
     t("Books.sriVidya"),
+    t("Books.sriChakra"),
+    t("Books.none"),
   ];
 
-  const toggleBook = (book) => {
-    if (selectedBooks.includes(book)) {
-      setSelectedBooks(selectedBooks.filter((b) => b !== book));
-    } else {
-      setSelectedBooks([...selectedBooks, book]);
-    }
-  };
+  const [years, setYears] = useState([]);
+  useEffect(() => {
+    const currentYear = new Date().getFullYear();
+    setYears(Array.from({ length: 100 }, (_, i) => currentYear - i));
+  }, []);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const { register, loading, error, success } = useAuthStore();
   useEffect(() => {
     if (success) {
-      console.log("Success =", success);
       setIsModalOpen(true);
       resetForm();
     } else if (error) {
       alert(error);
-      console.log("Error =", error);
     }
   }, [success, error]);
+
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setAge({ day: "", month: "", year: "" });
+    setSelectedGender("");
+    setSelectedCity("");
+    setSelectedCountry("");
+    setSelectedBooks([]);
+  };
+
+  const toggleBook = (book) => {
+    const noneLabel = t("Books.none");
+    setSelectedBooks((prev) => {
+      if (book === noneLabel) return [noneLabel];
+      const filtered = prev.filter((b) => b !== noneLabel);
+      if (filtered.includes(book)) return filtered.filter((b) => b !== book);
+      return [...filtered, book];
+    });
+  };
 
   const handleRegister = async () => {
     const data = {
       username: name,
-      email: email,
-      phone: phone,
-      age: age,
+      email,
+      phone,
+      DOB: `${age.day}-${age.month}-${age.year}`,
       gender: selectedGender,
       city: selectedCity,
       country: selectedCountry,
       booksRead: selectedBooks,
     };
     await register(data);
-  };
-  const resetForm = () => {
-    setName("");
-    setEmail("");
-    setPhone("");
-    setAge("");
-    setSelectedGender("");
-    setSelectedCity("");
-    setSelectedCountry("");
-    setSelectedBooks([]);
-    setCityOpen(false);
-    setCountryOpen(false);
-    setBookOpen(false);
+    console.log("data submitted", data);
   };
 
-  const closeModal = () => setIsModalOpen(false);
   return (
-    <div className="flex justify-center min-h-screen bg-gray-100 overflow-visible">
-      <div className="relative w-[425px] bg-[linear-gradient(to_bottom,_#fce3da_40%,_#f8f1ff_60%,_#efe0fc_100%)] bg-red-500 overflow-visible">
-        {/* Back Button */}
-        <Back />
-
-        <p className="mt-24 mb-8 text-center text-[#4A4365] text-lg leading-relaxed px-2">
-          {t("text")} <br /> {t("text1")}
-          <br /> {t("text2")}
+    <div className="flex flex-col min-h-screen bg-white flex-1 items-center justify-center">
+      <div className="w-full flex flex-1 flex-col justify-center max-w-[425px] min-h-screen bg-gradient-to-b from-[#fce3da] via-[#f8f1ff] to-[#efe0fc] shadow-lg py-3 backdrop-blur-sm ">
+        <p className="text-center text-[#4A4365] text-lg sm:text-xl leading-relaxed mb-6 px-4 sm:px-6">
+          {t("text")} <br /> {t("text1")} <br /> {t("text2")}
         </p>
-
         <form
-          className="space-y-4 px-2"
+          className="space-y-4 px-4 sm:px-6 mb-16 sm:mb-10 lg:mb-18"
           onSubmit={(e) => {
             e.preventDefault();
             handleRegister();
           }}
         >
-          <div className="relative px-3">
-            <FaUser
-              size={20}
-              className="absolute left-8 top-1/2 -translate-y-1/2 text-black"
-            />
-            <input
-              type="text"
-              placeholder={t("Form.name")}
-              className="w-full rounded-3xl border-2 border-orange-200 bg-white/80 py-2 pl-12 pr-4 text-base text-gray-700 placeholder-gray-400 focus:border-orange-300 focus:outline-none"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+          {/* Name */}
+          <InputField
+            icon={<FaUser size={18} />}
+            value={name}
+            onChange={setName}
+            placeholder={t("Form.name")}
+            type="text"
+            required
+          />
 
-          <div className="relative px-3">
-            <FaEnvelope
-              size={20}
-              className="absolute left-8 top-1/2 -translate-y-1/2 text-black"
-            />
-            <input
-              type="email"
-              placeholder={t("Form.email")}
-              className="w-full rounded-3xl border-2 border-white bg-transparent py-2 pl-12 pr-4 text-base text-gray-700 placeholder-gray-400 focus:border-orange-300 focus:outline-none"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+          {/* Email */}
+          <InputField
+            icon={<FaEnvelope size={18} />}
+            value={email}
+            onChange={setEmail}
+            placeholder={t("Form.email")}
+            type="email"
+            required
+          />
 
-          <div className="relative px-3">
-            <div className="flex items-center w-full rounded-3xl border-2 border-white bg-transparent py-2 px-5">
-              <div className="relative w-6 h-5 mr-3">
-                <Image
-                  src="/hindi.png"
-                  alt="India Flag"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 425px) 100vw, 425px"
-                  priority
-                />
-              </div>
-              <input
-                type="tel"
-                placeholder={t("Form.phone")}
-                className="flex-1 bg-transparent text-base text-gray-700 placeholder-gray-400 focus:outline-none"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
+          {/* Phone */}
+          {/* <InputField
+            icon={<FaPhoneAlt size={18} />}
+            value={phone}
+            onChange={setPhone}
+            placeholder={t("Form.phone")}
+            type="tel"
+            required
+          /> */}
+
+            <PhoneInput
+              className='w-full h-full border-2 border-orange-200 bg-white/80 rounded-full px-4 py-2'
+              buttonStyle={{
+                width: "max-content",
+                height: "100%",
+                marginLeft: "-12px",
+                border: "0",                
+                borderRadius: "50px",
+                hover: { border: "50px" },
+                borderRight: "2px #b4b4b4 solid",
+                
+              }}
+              id='phone'
+              name='phone'
+              country={"in"}
+              value={phone}
+              type='tel'
+              onChange={setPhone}
+              inputProps={{
+                name: "phone",
+                required: true,
+                autoFocus: false,
+                className:
+                  "w-full h-full border-none pl-10 pr-1 outline-none rounded-full",
+              }}
+              countryCodeEditable={false}
+            />
+
+          {/* DOB */}
+          <div className="px-1 flex justify-center items-center gap-3">
+            <label className="block text-gray-700 text-lg font-medium">
+              {t("Form.age")}:
+            </label>
+            <div className="flex flex-1 gap-3">
+              {[t("Form.day"), t("Form.month"), t("Form.year")].map((label, i) => (
+                <select
+                  key={label}
+                  value={Object.values(age)[i]}
+                  onChange={(e) =>
+                    setAge((prev) => ({
+                      ...prev,
+                      [Object.keys(age)[i]]: e.target.value,
+                    }))
+                  }
+                  className="flex-1 px-1 rounded-3xl border-2 border-orange-300 bg-white py-1 text-base text-gray-700 focus:border-orange-400 focus:outline-none"
+                  required
+                >
+                  <option value="">{label}</option>
+                  {i === 0 &&
+                    Array.from({ length: 31 }, (_, j) => j + 1).map((d) => (
+                      <option key={d}>{d}</option>
+                    ))}
+                  {i === 1 &&
+                    [
+                      "Jan",
+                      "Feb",
+                      "Mar",
+                      "Apr",
+                      "May",
+                      "Jun",
+                      "Jul",
+                      "Aug",
+                      "Sep",
+                      "Oct",
+                      "Nov",
+                      "Dec",
+                    ].map((m) => (
+                      <option key={m}>{m}</option>
+                    ))}
+                  {i === 2 &&
+                    years.map((y) => (
+                      <option key={y} value={y}>
+                        {y}
+                      </option>
+                    ))}
+                </select>
+              ))}
             </div>
           </div>
 
-          <div className="relative px-3">
-            <FaBirthdayCake
-              size={20}
-              className="absolute left-8 top-1/2 -translate-y-1/2 text-black"
-            />
-            <input
-              type="number"
-              min={2}
-              max={99}
-              placeholder={t("Form.age")}
-              className="w-full rounded-3xl border-2 border-white bg-white py-2 pl-12 pr-4 text-base text-gray-700 placeholder-gray-400 focus:border-orange-300 focus:outline-none"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              required
-            />
-          </div>
-
+          {/* Gender */}
           <Dropdown
             label={selectedGender}
             open={genderOpen}
-            setOpen={(v) => {
-              setGenderOpen(v);
-              if (v) {
-                setCityOpen(false);
-                setCountryOpen(false);
-                setBookOpen(false);
-              }
-            }}
-            placeholder={t("Form.gender")}
+            setOpen={setGenderOpen}
             items={gender}
-            setSelected={(gender) => setSelectedGender(gender)}
+            setSelected={setSelectedGender}
+            placeholder={t("Form.gender")}
           />
-          {/* <Dropdown
-            label={selectedCity}
-            open={cityOpen}
-            setOpen={(v) => {
-              setCityOpen(v);
-              if (v) {
-                setCountryOpen(false);
-                setBookOpen(false);
-              }
-            }}
+
+          {/* Country */}
+          <CountryDropdown
+            value={selectedCountry}
+            onChange={setSelectedCountry}
+          />
+
+          {/* City */}
+          <input
+            type="text"
             placeholder={t("Form.city")}
-            items={cities}
-            setSelected={(city) => setSelectedCity(city)}
-          /> */}
-
-          {/* <Dropdown
-            label={selectedCountry}
-            open={countryOpen}
-            setOpen={(v) => {
-              setCountryOpen(v);
-              if (v) {
-                setCityOpen(false);
-                setBookOpen(false);
-              }
-            }}
-            placeholder={t("Form.country")}
-            items={countries}
-            setSelected={(country) => setSelectedCountry(country)}
-          /> */}
+            value={selectedCity}
+            onChange={(e) => setSelectedCity(e.target.value)}
+            required
+            className="w-full rounded-3xl border-2 border-orange-300 bg-white py-2 px-5 text-base text-gray-700 placeholder-gray-400 focus:border-orange-400 focus:outline-none"
+          />
 
 
-          <div className="relative px-3">
-              <input
-              type="text"
-              placeholder={t("Form.city")}
-              className="w-full rounded-3xl border-2 border-orange-300 bg-white py-2 px-5 text-base text-gray-700 placeholder-gray-400 focus:border-orange-300 focus:outline-none"
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)}
-              required
-            />
-          </div>
 
-          <CountryDropdown onChange={(country) => setSelectedCountry(country)} value={selectedCountry} />
-
+          {/* Books */}
           <Dropdown
             label={
               selectedBooks.length
@@ -250,40 +250,49 @@ export default function Register() {
                 : t("Form.selectedBooks")
             }
             open={bookOpen}
-            setOpen={(v) => {
-              setBookOpen(v);
-              if (v) {
-                setCityOpen(false);
-                setCountryOpen(false);
-              }
-            }}
+            setOpen={setBookOpen}
             items={books}
-            multiSelect={true}
+            multiSelect
             selectedItems={selectedBooks}
             toggleItem={toggleBook}
           />
 
-          <div className="mx-auto mt-14 mb-20">
-            <button
-              type="submit"
-              disabled={loading}
-              className={`px-8 py-3 min-w-36 max-w-36 whitespace-nowrap flex justify-center items-center text-base font-semibold text-white rounded-full mx-auto transition duration-300 ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-pink-300 to-orange-300 hover:opacity-90"
+          {/* Submit */}
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full max-w-26 mx-auto flex justify-center items-center cursor-pointer py-2 text-white font-semibold rounded-full transition duration-300 ${loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-gradient-to-r from-pink-300 to-orange-300 hover:opacity-90"
               }`}
-            >
-              {loading ? "submitting..." : button("submit")}
-            </button>
-          </div>
+          >
+            {loading ? "Submitting..." : button("submit")}
+          </button>
         </form>
-
-        {/* Footer */}
-        <div className="absolute bottom-0 z-20 mx-auto w-full ">
+        <div className="w-full absolute bottom-0 z-20 mx-auto px-2">
           <Footer />
         </div>
-        <VerificationModal isOpen={isModalOpen} onClose={closeModal} />
+        <VerificationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       </div>
+    </div>
+  );
+}
+
+function InputField({ icon, value, onChange, placeholder, type, required }) {
+  return (
+    <div className="relative flex items-center border-2 border-orange-200 bg-white/80 rounded-3xl px-4 py-2">
+      <span className="text-gray-600 mr-3">{icon}</span>
+      <input
+        type={type}
+        value={value}
+        required={required}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        className="flex-1 bg-transparent text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+      />
     </div>
   );
 }
@@ -297,175 +306,138 @@ function Dropdown({
   multiSelect = false,
   selectedItems = [],
   toggleItem,
-  placeholder = "Select items...",
+  placeholder,
 }) {
   const dropdownRef = useRef(null);
-
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target))
         setOpen(false);
-      }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [setOpen]);
 
-  const displayLabel =
-    multiSelect && selectedItems.length > 0
-      ? `${selectedItems.length} Book(s) Selected`
-      : label || placeholder;
-
   return (
-    <div
-      ref={dropdownRef}
-      className={`relative w-full px-3 ${open ? "z-50" : "z-40"}`}
-    >
+    <div ref={dropdownRef} className="relative">
       <div
         onClick={() => setOpen(!open)}
-        className="w-full flex justify-between items-center rounded-3xl border-2 border-orange-200 bg-white/80 py-2.5 px-5 text-sm text-gray-700 cursor-pointer hover:shadow-md transition-all"
+        className="w-full flex justify-between items-center rounded-3xl border-2 border-orange-200 bg-white/80 py-2.5 px-5 text-sm text-gray-700 cursor-pointer hover:shadow-md transition-all "
       >
         <span
-          className={`${
-            selectedItems.length
-              ? "text-gray-900 font-medium "
-              : "text-gray-400 "
-          }`}
+          className={
+            label || selectedItems.length
+              ? "text-gray-900 font-medium"
+              : "text-gray-400"
+          }
         >
-          {displayLabel}
+          {label || placeholder}
         </span>
         <FaChevronDown
-          className={`transition-transform duration-300 ${
-            open ? "rotate-180 text-orange-400" : "text-gray-500"
-          }`}
+          className={`transition-transform duration-300 ${open ? "rotate-180 text-orange-400" : "text-gray-500"
+            }`}
         />
       </div>
-
-      {/* Dropdown Menu */}
       {open && (
-        <div className="absolute top-full left-3 right-3 mt-2 rounded-2xl border border-pink-100 bg-white shadow-lg min-h-20 overflow-y-auto z-[9999]">
-          {items.length > 0 ? (
-            items.map((item) => (
-              <div
-                key={item}
-                className={`flex items-center px-4 py-1 text-gray-700 text-sm cursor-pointer hover:bg-pink-100 ${
-                  selectedItems.includes(item) ? "bg-pink-50" : ""
+        <div className="absolute z-50 top-full mt-2 left-0 right-0 rounded-2xl border border-pink-100 bg-white shadow-lg max-h-36 overflow-y-scroll pt-2 pb-8">
+          {items.map((item) => (
+            <div
+              key={item}
+              onClick={() =>
+                multiSelect
+                  ? toggleItem(item)
+                  : (setSelected(item), setOpen(false))
+              }
+              className={`flex items-center px-4 py-2 text-gray-700 cursor-pointer hover:bg-pink-100 ${selectedItems.includes(item) ? "bg-pink-50" : ""
                 }`}
-                onClick={() =>
-                  multiSelect
-                    ? toggleItem(item)
-                    : (setSelected(item), setOpen(false))
-                }
-              >
-                {multiSelect && (
-                  <input
-                    type="checkbox"
-                    checked={selectedItems.includes(item)}
-                    onChange={() => toggleItem(item)}
-                    className="mr-2 accent-orange-500"
-                  />
-                )}
-                {item}
-              </div>
-            ))
-          ) : (
-            <div className="px-4 py-2 text-gray-400 text-sm italic">
-              No options available
+            >
+              {multiSelect && (
+                <input
+                  type="checkbox"
+                  checked={selectedItems.includes(item)}
+                  onChange={() => toggleItem(item)}
+                  className="mr-2 accent-orange-500"
+                />
+              )}
+              {item}
             </div>
-          )}
+          ))}
         </div>
       )}
     </div>
   );
 }
 
-const CountryDropdown = ({ value, onChange }) => {
+function CountryDropdown({ value, onChange }) {
   const [input, setInput] = useState(value || "");
-  const [allCountries, setAllCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [filtered, setFiltered] = useState([]);
+  const [show, setShow] = useState(false);
   const ref = useRef(null);
   const t = useTranslations("register");
 
+  useEffect(() => {
+    const countryList = Object.entries(countries.getNames("en")).map(
+      ([code, name]) => ({
+        code,
+        name,
+      })
+    );
+    setFiltered(countryList);
+  }, []);
 
   useEffect(() => {
-    setInput(value || "");
-  }, [value]);
-
-  useEffect(() => {
-    function handleClickOutSide(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutSide);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutSide);
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setShow(false);
     };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    const countryNames = countries.getNames("en");
-    const countryArray = Object.entries(countryNames).map(([code, name]) => ({
-      code,
-      name,
-    }));
-    setAllCountries(countryArray);
-    setFilteredCountries(countryArray);
-  }, []);
+  const handleInput = (e) => {
+    const val = e.target.value;
+    setInput(val);
+    setShow(true);
+    onChange(val);
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInput(value);
-    setShowDropdown(true);
-
-    if (value.trim() === "") {
-      setFilteredCountries(allCountries);
-    } else {
-      const filtered = allCountries.filter((country) =>
-        country.name.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredCountries(filtered);
-    }
-  };
-
-  const handleSelect = (countryName) => {
-    setInput(countryName);
-    setShowDropdown(false);
-    onChange(countryName);
+    const all = Object.entries(countries.getNames("en")).map(
+      ([code, name]) => ({
+        code,
+        name,
+      })
+    );
+    const result = all.filter((c) =>
+      c.name.toLowerCase().includes(val.toLowerCase())
+    );
+    setFiltered(result);
   };
 
   return (
-    <div ref={ref} className="relative w-full px-3">
-        <input
-        type="text"
+    <div ref={ref} className="relative">
+      <input
         value={input}
-        onChange={handleInputChange}
+        required
+        onChange={handleInput}
+        onFocus={() => setShow(true)}
         placeholder={t("Form.country")}
-        onFocus={() => setShowDropdown(true)}
-        className="w-full px-4 py-2 border-2 border-orange-300 rounded-4xl bg-white placeholder-gray-400 focus:outline-none  focus:ring-orange-400"
+        className="w-full px-4 py-2 border-2 border-orange-300 rounded-3xl bg-white placeholder-gray-400 focus:outline-none"
       />
-
-      {showDropdown && filteredCountries.length > 0 && (
-        <ul className="absolute z-50 bg-white border border-orange-300 rounded w-[90%] mt-1 max-h-28 overflow-y-auto shadow-md">
-          {filteredCountries.map((country) => (
+      {show && (
+        <ul className="absolute z-50 bg-white border border-orange-300 rounded w-full mt-1 max-h-40 overflow-y-auto shadow-md">
+          {filtered.map((country) => (
             <li
               key={country.code}
-              onClick={() => handleSelect(country.name)}
-              className="px-4 py-2 hover:bg-blue-100 cursor-pointer"
+              onClick={() => {
+                setInput(country.name);
+                onChange(country.name);
+                setShow(false);
+              }}
+              className="px-4 py-2 hover:bg-orange-100 cursor-pointer"
             >
               {country.name}
             </li>
           ))}
         </ul>
       )}
-
-      {showDropdown && input && filteredCountries.length === 0 && (
-        <div className="absolute z-10 bg-white border border-gray-300 rounded w-full mt-1 px-4 py-2 text-gray-500">
-          No countries found
-        </div>
-      )}
     </div>
   );
-};
+}

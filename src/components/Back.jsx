@@ -12,9 +12,9 @@ export default function Back() {
         <div>
             <button
                 onClick={() => router.back()}
-                className="absolute left-5 top-4 z-30 flex items-center gap-2 text-lg text-black cursor-pointer"
+                className="absolute bg-white/30 py-1 px-3 rounded-3xl left-2 top-1 z-30 flex items-center gap-2 text-lg text-black cursor-pointer"
             >
-                <span className="text-3xl"><IoArrowBack size={24} /></span> {back("button")}
+                <span className="text-2xl"><IoArrowBack size={20} /></span> {back("button")}
             </button>
         </div>
     )

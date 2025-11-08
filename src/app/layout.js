@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
     "/chat": <ChatPage />,
   };
 
+
   return (
     <html lang="en">
       <body

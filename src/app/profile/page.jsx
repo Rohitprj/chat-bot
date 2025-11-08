@@ -6,18 +6,22 @@ import { BiBullseye } from "react-icons/bi";
 import { LuClock3 } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import BottomNavBar from "@/components/BottomNavBar";
+import { useAuthStore } from "@/store/authStore";
 
-const ProfileScreen = () => {
+export default function Page() {
     const router = useRouter();
     const t = useTranslations("Profile");
+    const { token } = useAuthStore();
 
-    return (
-        <div className="h-full overflow-y-auto bg-[linear-gradient(to_bottom,_#fce3da_30%,_#f8f1ff_90%,_#efe0fc_100%)]">
+    return (token ?
+        (<div className="h-screen bg-white flex justify-center items-center">
+        <div className="h-full max-w-[426px] overflow-y-auto bg-[linear-gradient(to_bottom,_#fce3da_30%,_#f8f1ff_90%,_#efe0fc_100%)]">
 
             {/* Header */}
             <div className="h-20 flex items-center justify-between px-4 bg-gradient-to-r from-[#FF88A5] to-[#FCBB90] text-white">
-                <div className="flex items-center gap-3">
-                    <span onClick={() => router.back()}><FaArrowLeft size={24} /></span>
+                <div className="flex items-center gap-3 ">
+                        <span onClick={() => router.push("/chat")}><FaArrowLeft size={24} className="cursor-pointer"/></span>
                     <FiUser size={28} />
                     <h1 className="font-bold text-lg">{t("header")}</h1>
                 </div>
@@ -103,6 +107,8 @@ const ProfileScreen = () => {
 
             </div>
         </div>
+            <BottomNavBar />
+        </div>) : router.push("/login")
     );
 };
 
@@ -143,4 +149,10 @@ const AchievementCard = ({ title, description, isInactive = false }) => (
     </div>
 );
 
-export default ProfileScreen;
+
+
+
+
+
+
+

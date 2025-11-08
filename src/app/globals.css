@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+.react-tel-input .selected-flag:hover,
+.react-tel-input .selected-flag:focus,
+.react-tel-input .flag-dropdown:hover,
+.react-tel-input .flag-dropdown:focus {
+    border-top-left-radius: 500px !important;
+    border-bottom-left-radius: 500px !important;
+}
+
+.react-tel-input .selected-flag,
+.react-tel-input .selected-flag:focus,
+.react-tel-input .flag-dropdown,
+.react-tel-input .flag-dropdown:focus {
+    border-top-left-radius: 500px !important;
+    border-bottom-left-radius: 500px !important;
+}

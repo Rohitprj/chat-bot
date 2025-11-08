@@ -12,6 +12,7 @@ import { useTranslations } from "next-intl";
 import Back from "@/components/Back";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
+import Link from "next/link";
 
 export default function Page() {
   const router = useRouter();
@@ -32,16 +33,14 @@ export default function Page() {
 
   useEffect(() => {
     if (success) {
-      router.push("/user");
+      router.push("/chat");
     }
   }, [success]);
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 overflow-hidden">
       <div className="relative h-screen w-full max-w-[425px] bg-gradient-to-b from-[#fce3da] via-[#f8f1ff] to-[#efe0fc] shadow-lg flex flex-col justify-between">
-        <div className="absolute top-4 left-4">
-          <Back />
-        </div>
+
 
         <div className="flex flex-col items-center justify-center flex-1 py-16 px-6 sm:px-10">
           <p className="text-gray-600 text-center text-lg sm:text-xl md:text-xl mb-10">
@@ -50,7 +49,7 @@ export default function Page() {
 
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-5 w-full max-w-sm"
+            className="flex flex-col gap-2 w-full max-w-sm"
           >
             {/* Email Input */}
             <div className="relative flex items-center bg-white/80 rounded-full py-3 px-5 border-2 border-[#FF88A5]">
@@ -72,8 +71,18 @@ export default function Page() {
               />
             </div>
 
+            <div className="text-center text-gray-600 text-md">
+              {t("noAccount")}
+              <Link
+                href="/register" 
+                className="font-bold text-lg text-[#FF88A5] hover:text-[#fc7aa0] hover:underline ml-2"
+              >
+                {t("signUpLink")}
+              </Link>
+            </div>
+
             {/* Password Input */}
-            <div className="relative flex items-center bg-white/80 rounded-full py-3 px-5 border-2 border-[#FF88A5]">
+            {/* <div className="relative flex items-center bg-white/80 rounded-full py-3 px-5 border-2 border-[#FF88A5]">
               <FaLock
                 size={20}
                 className="text-gray-500 absolute left-5 sm:static sm:mr-2"
@@ -98,13 +107,13 @@ export default function Page() {
                   onClick={() => setShowPassword(true)}
                 />
               )}
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="mt-8 px-8 py-3 text-white font-semibold text-base rounded-full bg-gradient-to-r from-pink-300 to-orange-300 hover:opacity-90 transition-all"
+              className="mt-4 px-8 py-3 text-white font-semibold text-base rounded-full bg-gradient-to-r from-pink-300 to-orange-300 hover:opacity-90 transition-all cursor-pointer"
             >
               {loading ? "Loading..." : button("submit")}
             </button>

@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import { useState, useEffect, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function Footer() {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const t = useTranslations("Footer");
+  const pathname = usePathname();
 
   const [language, setLanguage] = useState("en");
   const [languageImage, setLanguageImage] = useState("/english.png");
@@ -36,12 +38,10 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full mb-4">
-      <div className="flex justify-between items-end px-6 sm:px-10 w-full text-base cursor-pointer h-10">
+      <div className="flex justify-between items-end px-6 sm:px-4 w-full text-base h-10">
         {/* Language Selector */}
-        <div
-          data-swipe-ignore
-          className="flex items-center gap-2 bg-white/50 px-3 py-2 rounded-3xl "
-        >
+        <div data-swipe-ignore
+          className="flex items-center gap-2 bg-white/50 px-3 py-2 rounded-3xl ">
           <div className="relative w-4 h-4">
             <Image
               src={languageImage}
@@ -63,12 +63,11 @@ export default function Footer() {
           </select>
         </div>
 
-        {/* Powered by Section */}
-        <div className="flex items-center gap-3  rounded-3xl whitespace-nowrap h-full">
+        {pathname !== "/" ? (<Link href="https://www.shunyawellness.com" target="_blank" className="flex items-center gap-1  rounded-3xl whitespace-nowrap h-full cursor-pointer ">
           <span className="text-base sm:text-base font-semibold text-black">
             {t("text")}
           </span>
-          <div className="relative w-10 h-full bg-white/30 rounded-sm">
+          <div className="relative w-8 h-full rounded-sm">
             <Image
               src="/0.png"
               alt="Powered by Icon"
@@ -78,7 +77,12 @@ export default function Footer() {
               className="object-contain py-1"
             />
           </div>
-        </div>
+        </Link>) : (<div className="flex items-center gap-2 bg-white/50 px-3 py-2 rounded-3xl cursor-pointer ">
+          <Link href="/book" className="text-base sm:text-base font-semibold text-black">
+              {t("explore")}
+          </Link>
+        </div>)}
+
       </div>
     </footer>
   );
