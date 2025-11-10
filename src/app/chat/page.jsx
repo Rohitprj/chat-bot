@@ -327,6 +327,7 @@ export default function ChatPage() {
       const utter = new SpeechSynthesisUtterance(response);
       utter.rate = 1;
       utter.pitch = 1;
+      utter.lang = "hi-IN";
       synth.speak(utter);
     } catch (error) {
       console.error("Error:", error);
