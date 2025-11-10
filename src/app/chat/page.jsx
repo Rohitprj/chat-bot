@@ -238,6 +238,14 @@ export default function ChatPage() {
   const [recognition, setRecognition] = useState(null);
 
   const { chats, chatHistory, remainingFreeChats } = useChatStore();
+
+  useEffect(() => {
+    if (remainingFreeChats === 0) {
+      console.log("Remaining Chats = ", remainingFreeChats);
+      router.push("/register");
+    }
+  }, [remainingFreeChats, router]);
+
   const messageListRef = useRef(null);
   const t = useTranslations("Chat");
 
