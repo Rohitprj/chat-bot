@@ -315,7 +315,7 @@ export default function ChatPage() {
     else recognition.start();
   };
 
-  // 🧠 Send message (manual or from mic)
+  //  Send message (manual or from mic)
   const handleSendMessage = async (customMessage) => {
     const messageToSend = customMessage || newMessage;
     if (!messageToSend.trim() || loading) return;
@@ -330,13 +330,15 @@ export default function ChatPage() {
       const botMessage = { role: "bot", content: response };
       setMessages((prev) => [...prev, botMessage]);
 
-      // 🗣️ Speak the bot’s response
-      const synth = window.speechSynthesis;
-      const utter = new SpeechSynthesisUtterance(response);
-      utter.rate = 1;
-      utter.pitch = 1;
-      utter.lang = "hi-IN";
-      synth.speak(utter);
+      // 🗣️ Speak ONLY if question came from mic
+      if (customMessage) {
+        const synth = window.speechSynthesis;
+        const utter = new SpeechSynthesisUtterance(response);
+        utter.rate = 1;
+        utter.pitch = 1;
+        utter.lang = "hi-IN";
+        synth.speak(utter);
+      }
     } catch (error) {
       console.error("Error:", error);
       setMessages((prev) => [
