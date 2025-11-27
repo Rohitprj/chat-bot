@@ -6,6 +6,7 @@ export const useChatStore = create((set) => ({
   error: null,
   chat: null,
   remainingFreeChats: null,
+  numberOfQuestions: null,
 
   chats: async (data) => {
     try {
@@ -54,6 +55,8 @@ export const useChatStore = create((set) => ({
       set({ loading: true, error: null });
       const res = await chatServices.chatHistory();
       const history = res?.history[0]?.chats || [];
+      set({ numberOfQuestions: history.length });
+      // console.log("HISTORYMess", JSON.stringify(history, null, 2));
       set({ loading: false });
       return history;
     } catch (error) {

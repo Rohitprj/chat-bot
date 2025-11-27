@@ -83,7 +83,7 @@ export const VerificationModal = ({ isOpen, onClose }) => {
         <div className="flex justify-between items-start mb-4 border-b pb-3">
           <h3
             id="modal-title"
-            class="text-2xl font-bold flex items-center">
+            className="text-2xl font-bold flex items-center">
             <CheckIcon />
           <span className="text-2xl font-bold  
             bg-gradient-to-r from-[#FF88A5] to-[#FCBB90]  bg-clip-text text-transparent" >            

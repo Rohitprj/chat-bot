@@ -67,7 +67,7 @@ export default function Footer() {
           <span className="text-base sm:text-base font-semibold text-black">
             {t("text")}
           </span>
-          <div className="relative w-8 h-full rounded-sm">
+          <div className="relative w-8 h-full rounded-sm z-50">
             <Image
               src="/0.png"
               alt="Powered by Icon"

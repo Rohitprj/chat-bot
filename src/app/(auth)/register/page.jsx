@@ -124,43 +124,33 @@ export default function Register() {
             required
           />
 
-          {/* Phone */}
-          {/* <InputField
-            icon={<FaPhoneAlt size={18} />}
-            value={phone}
-            onChange={setPhone}
-            placeholder={t("Form.phone")}
-            type="tel"
-            required
-          /> */}
+          <PhoneInput
+            className='w-full h-full border-2 border-orange-200 bg-white/80 rounded-full px-4 py-2'
+            buttonStyle={{
+              width: "max-content",
+              height: "100%",
+              marginLeft: "-12px",
+              border: "0",
+              borderRadius: "50px",
+              hover: { border: "50px" },
+              borderRight: "2px #b4b4b4 solid",
 
-            <PhoneInput
-              className='w-full h-full border-2 border-orange-200 bg-white/80 rounded-full px-4 py-2'
-              buttonStyle={{
-                width: "max-content",
-                height: "100%",
-                marginLeft: "-12px",
-                border: "0",                
-                borderRadius: "50px",
-                hover: { border: "50px" },
-                borderRight: "2px #b4b4b4 solid",
-                
-              }}
-              id='phone'
-              name='phone'
-              country={"in"}
-              value={phone}
-              type='tel'
-              onChange={setPhone}
-              inputProps={{
-                name: "phone",
-                required: true,
-                autoFocus: false,
-                className:
-                  "w-full h-full border-none pl-10 pr-1 outline-none rounded-full",
-              }}
-              countryCodeEditable={false}
-            />
+            }}
+            id='phone'
+            name='phone'
+            country={"in"}
+            value={phone}
+            type='tel'
+            onChange={setPhone}
+            inputProps={{
+              name: "phone",
+              required: true,
+              autoFocus: false,
+              className:
+                "w-full h-full border-none pl-10 pr-1 outline-none rounded-full",
+            }}
+            countryCodeEditable={false}
+          />
 
           {/* DOB */}
           <div className="px-1 flex justify-center items-center gap-3">
@@ -236,7 +226,6 @@ export default function Register() {
             placeholder={t("Form.city")}
             value={selectedCity}
             onChange={(e) => setSelectedCity(e.target.value)}
-            required
             className="w-full rounded-3xl border-2 border-orange-300 bg-white py-2 px-5 text-base text-gray-700 placeholder-gray-400 focus:border-orange-400 focus:outline-none"
           />
 
@@ -262,8 +251,8 @@ export default function Register() {
             type="submit"
             disabled={loading}
             className={`w-full max-w-26 mx-auto flex justify-center items-center cursor-pointer py-2 text-white font-semibold rounded-full transition duration-300 ${loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-gradient-to-r from-pink-300 to-orange-300 hover:opacity-90"
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gradient-to-r from-pink-300 to-orange-300 hover:opacity-90"
               }`}
           >
             {loading ? "Submitting..." : button("submit")}
@@ -370,73 +359,89 @@ function Dropdown({
 
 function CountryDropdown({ value, onChange }) {
   const [input, setInput] = useState(value || "");
-  const [filtered, setFiltered] = useState([]);
   const [show, setShow] = useState(false);
+  const [filtered, setFiltered] = useState([]);
+  const [isCountryValid, setIsCountryValid] = useState(false);
+
   const ref = useRef(null);
   const t = useTranslations("register");
 
+  const allCountries = useRef([]);
+
   useEffect(() => {
-    const countryList = Object.entries(countries.getNames("en")).map(
-      ([code, name]) => ({
-        code,
-        name,
-      })
+    allCountries.current = Object.entries(countries.getNames("en")).map(
+      ([code, name]) => ({ code, name })
     );
-    setFiltered(countryList);
+    setFiltered(allCountries.current);
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setShow(false);
+    const handler = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setShow(false);
+      }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
   const handleInput = (e) => {
     const val = e.target.value;
     setInput(val);
     setShow(true);
-    onChange(val);
 
-    const all = Object.entries(countries.getNames("en")).map(
-      ([code, name]) => ({
-        code,
-        name,
-      })
-    );
-    const result = all.filter((c) =>
+    if (val.trim() === "") {
+      setIsCountryValid(true);
+      setFiltered(allCountries.current);
+      return;
+    }
+
+    setIsCountryValid(false);
+
+    const result = allCountries.current.filter((c) =>
       c.name.toLowerCase().includes(val.toLowerCase())
     );
+
     setFiltered(result);
   };
 
+
+  const handleSelect = (name) => {
+    setInput(name);
+    onChange(name);
+    setIsCountryValid(true); 
+    setShow(false);
+  };
+
+
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative w-full">
       <input
         value={input}
-        required
         onChange={handleInput}
         onFocus={() => setShow(true)}
         placeholder={t("Form.country")}
         className="w-full px-4 py-2 border-2 border-orange-300 rounded-3xl bg-white placeholder-gray-400 focus:outline-none"
       />
+
       {show && (
-        <ul className="absolute z-50 bg-white border border-orange-300 rounded w-full mt-1 max-h-40 overflow-y-auto shadow-md">
+        <ul className="absolute z-50 bg-white border border-orange-300 rounded-2xl w-full mt-1 max-h-40 overflow-y-auto shadow-md text-gray-700">
           {filtered.map((country) => (
             <li
               key={country.code}
-              onClick={() => {
-                setInput(country.name);
-                onChange(country.name);
-                setShow(false);
-              }}
+              onClick={() => handleSelect(country.name)}
               className="px-4 py-2 hover:bg-orange-100 cursor-pointer"
             >
               {country.name}
             </li>
           ))}
         </ul>
+      )}
+
+      {input.length > 0 && !isCountryValid && (
+        <p className="text-red-500 text-sm mt-1 ml-2">
+          Please select a valid country from the list.
+        </p>
       )}
     </div>
   );

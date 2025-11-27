@@ -13,11 +13,11 @@ export default function Hero() {
   return (
     <main className="relative flex justify-center items-center h-screen bg-gray-100 overflow-hidden">
       <div className="relative w-[425px] h-screen bg-[#F6EFE8] shadow-lg overflow-hidden flex items-end">
- 
+
         <Link
           href="https://www.shunyawellness.com"
           target="_blank"
-          className="absolute top-1 right-1 flex items-center gap-1  backdrop-blur-md px-2 py-1 rounded-full"
+          className="absolute z-40 top-1 right-1 flex items-center gap-1 px-2 py-1 rounded-full"
         >
           <span className="text-sm sm:text-base font-semibold text-gray-400">
             {p("text")}
@@ -34,9 +34,9 @@ export default function Hero() {
           </div>
         </Link>
 
-        <div className="absolute top-8 sm:top-8 left-0 w-full h-[43%]  sm:h-[46%]   opacity-10">
+        <div className="absolute top-[6%] sm:top-[6%] left-0 w-full h-[45%]  sm:h-[44%] opacity-80">
           <Image
-            src="/bg.svg"
+            src="/bgnew.jpeg"
             alt="Background"
             fill
             priority
@@ -46,9 +46,9 @@ export default function Hero() {
           />
         </div>
 
-        <div className="absolute bottom-0 w-full h-[539px] sm:h-[462px] transform translate-x-4 scale-115 sm:scale-130 z-10">
+        <div className="absolute bottom-0 w-full h-[66%] sm:h-[462px] transform translate-x-4 scale-115 sm:scale-130 z-10">
           <Image
-            src="/vinita.png"
+            src="/vinita.webp"
             alt="Vinita Rashinkar"
             fill
             className="object-contain"
@@ -60,7 +60,7 @@ export default function Hero() {
         </div>
 
         {/* Content section */}
-        <div className=" mb-36 w-full flex flex-col gap-6 items-center text-center px-4 z-20 ">
+        <div className=" mb-[36%] sm:mb-[36%] w-full flex flex-col gap-6 items-center text-center px-4 z-20 ">
           <div className="">
             <img src="/nameText.png" className="w-60 mb-2" />
             <p className="text-gray-800 text-md font-semibold">
@@ -71,10 +71,10 @@ export default function Hero() {
 
         <div className="absolute bottom-0 z-20 mx-auto w-full ">
           {/* Back */}
-          <div className="mx-auto mb-5">
+          <div className="mx-auto mb-[4%]">
             <Button link="/chat" name={tbutton("chat")} />
           </div>
-          <div>
+          <div >
             <Footer />
           </div>
         </div>

@@ -4,9 +4,10 @@ import { persist } from "zustand/middleware";
 
 export const useAuthStore = create(
   persist(
-    (set) => ({
+    (set,get) => ({
       user: null,
       token: null,
+      isLoggedIn: () => !!get().token,  
       loading: false,
       error: null,
       success: null,
@@ -14,7 +15,6 @@ export const useAuthStore = create(
         try {
           set({ loading: true });
           const res = await authServices.register(data);
-          // console.log("Zustand Response", res);
           set({ loading: false, success: res.success });
         } catch (error) {
           set({
@@ -38,21 +38,22 @@ export const useAuthStore = create(
       },
       login: async (data) => {
         try {
-          set({ loading: true });
+          set({ loading: true, error: null, success: null });
           const res = await authServices.login(data);
-          // console.log("Zustand Login", res);
           localStorage.setItem("token", res.token);
+
           set({
             user: res.user,
             token: res.token,
             loading: false,
             success: res.success,
           });
+          return { ok: res.success, message: res.message || "Login successful" };
+
         } catch (error) {
-          set({
-            error: error.response?.data?.message || "Login failed",
-            loading: false,
-          });
+          const errMsg = error.response?.data?.message || "Login failed";
+          set({ error: errMsg, loading: false });
+          return { ok: false, message: errMsg };
         }
       },
     }),

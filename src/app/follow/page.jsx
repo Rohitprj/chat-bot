@@ -7,6 +7,7 @@ import Link from "next/link";
 export default function Page() {
   const t = useTranslations("Follow");
   const b = useTranslations("button");
+
   const commonBtn = "px-3 py-1 sm:pb-1.5  flex justify-center items-center max-w-36 text-sm sm:text-base font-semibold text-white rounded-full bg-gradient-to-r from-pink-300 to-orange-300 hover:scale-105 transition cursor-pointer";
 
   const pageBtn = "px-4 py-1 sm:pb-2 font-bold whitespace-nowrap flex justify-center items-center text-base text-white rounded-full bg-gradient-to-r from-pink-500 via-red-400 to-orange-400 shadow-lg shadow-orange-300/50 scale-105 cursor-pointer hover:scale-115 transition";
@@ -35,16 +36,16 @@ export default function Page() {
           </Link>
         </div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center text-center text-[#4A4365] px-6 sm:px-8 flex-grow space-y-4 py-3 sm:py-2">
-          <p className="text-base sm:text-base leading-relaxed">
+        <div className="relative z-10 flex flex-col items-center justify-center text-justify text-[#4A4365] px-6 sm:px-8 flex-grow space-y-4 py-3 sm:py-2">
+          <p className="text-sm sm:text-base leading-relaxed">
             <span className="font-bold">{t("text")}</span> {t("text1")}
             <br /> {t("text2")}
           </p>
           <p className="text-sm sm:text-sm">{t("text3")}</p>
 
-          <div className="relative w-full max-w-[340px] h-[250px] sm:h-[240px] rounded-2xl overflow-hidden">
+          <div className="relative w-full max-w-[360px] h-[210px] sm:h-[260px] rounded-2xl overflow-hidden">
             <Image
-              src="/followImage.png"
+              src="/followImage.webp"
               alt="Vinita Rashinkar"
               fill
               className="object-cover rounded-2xl pointer-events-none select-none"
@@ -54,7 +55,7 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="relative z-10 flex justify-center items-center gap-3 pb-24 sm:pb-24">
+        <div className="relative z-10 flex justify-center items-center gap-3 pb-24 sm:pb-22">
           <Link href="/book">
             <button className={commonBtn}>
               {b("books")}

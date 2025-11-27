@@ -13,16 +13,12 @@
     "heading": "Connect with VinitaSri",
     "text": "VinitaSri has spent years immersed in the path of Sri Vidya sadhana—a journey of spiritual practice and inner transformation. Her calling now is to share this light with others. If you are ready to uncover your highest version, she invites you to connect with her and allow her to guide you on your spiritual path."
   },
-
-
-  
   "Chat": {
-    "chat": "Sri Matrye Namah!",
-    "chat1": "Enter a living temple of peace, awareness, ",
-    "chat2": "and Shakti. Through Sri Vidya, together",
-    "chat3": "we shall discover what truly empowers",
-    "chat4": "Ask VinitaSri"
-  },
+    "chat": "Sri Matrye Namah",
+    "chat1": "Welcome to AskVinitaSri - your gateway to answers guided by the ancient wisdom of Sri    Vidya and Shakti.   ",
+    "chat2": "Ask about practice, purpose, healing, transformation, or any step on your spiritual path.",
+    "chatInput": "Ask VinitaSri"
+  }, 
   "Chatagain": {
     "user": "How meditation can help me in my daily routine?",
     "bot": "Meditation helps with attention span, allowing you to stay focused longer. Enhanced willpower: Meditation develops the mental discipline needed to avoid unhelpful habits. Better sleep: Meditation can shorten the time it takes to fall asleep and improve sleep quality."
@@ -35,11 +31,11 @@
       "name": "Name, Middlename, Surname",
       "email": "Email",
       "phone": "Phone",
-      "age":"DOB",
-      "day":"Day",
-      "month":"Month",
-      "year":"Year",
-      "gender":"Gender",
+      "age": "DOB",
+      "day": "Day",
+      "month": "Month",
+      "year": "Year",
+      "gender": "Gender",
       "city": "City",
       "country": "Country",
       "books": "Book(s) Selected",
@@ -68,7 +64,7 @@
       "sriChakraYantra": "Sri Chakra Yantra",
       "sriVidya": "The Sacred Sounds of Sri Vidya - The Secret to Manifesting Abundance",
       "sriChakra": "Sri Chakra Yantra - Manifest anything with the Symbol of Everything",
-      "none":"None"
+      "none": "None"
     },
     "Confirm": {
       "ConfirmEmail": "Thank you for your confirmation.",
@@ -144,8 +140,8 @@
       "Profile": "Profile"
     },
     "Name": {
-      "Spiritual Seeker": "Spiritual Seeker",
-      "Member since December 2024": "Member since December 2024"
+      "name": "Spiritual Seeker",
+      "join": "Member since"
     }
   }
 }

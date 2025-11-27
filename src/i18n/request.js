@@ -15,8 +15,11 @@ import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
 
 export default getRequestConfig(async () => {
-  const cookieStore = cookies();
-  let locale = cookieStore.get("locale")?.value || "en";
+  const cookieStore = await cookies();
+  let locale = cookieStore.get("locale")?.value;
+  let cookie = cookieStore.get("authToken")?.value;
+  console.log("locale", locale);
+  console.log("Cookie", cookie);
 
   try {
     const messages = (await import(`../../messages/${locale}.json`)).default;

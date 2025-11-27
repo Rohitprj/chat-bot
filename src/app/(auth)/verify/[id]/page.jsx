@@ -12,7 +12,6 @@ export default function Page() {
   const params = useParams();
   const token = params.id;
   const { verify, loading, error, success } = useAuthStore();
-  // console.log("Token1", params.id);
   const handleVerify = async () => {
     await verify(token);
     if (success) {
