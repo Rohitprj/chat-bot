@@ -17,7 +17,7 @@ import { getRequestConfig } from "next-intl/server";
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
   let locale = cookieStore.get("locale")?.value;
-  let cookie = cookieStore.get("authToken_cookie")?.value;
+  let cookie = cookieStore.get("authToken")?.value;
   console.log("locale::", locale);
   console.log("Cookie::", cookie);
 
