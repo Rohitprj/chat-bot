@@ -39,7 +39,7 @@ export async function middleware(request) {
   //  const cookies =
   //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhleUBnbWFpbC5jb20iLCJfaWQiOiI2ODA2NDc3YjIyMDgxN2Y1MWJiN2I0OTYiLCJpYXQiOjE3NDUzMTkyNzYsImV4cCI6MTc0NTkyNDA3Nn0.98SBzGstzB_1zPT1DOsG7MZIdWzh6gW1AwpikrrAy3Y";
 
-  console.log("Cookie : ", cookies);
+  console.log("Cookie :- ", cookies);
 
   // if (publicPath && cookies) {
   //   // If logged in and trying to access login/signup, redirect to home
