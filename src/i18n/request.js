@@ -18,8 +18,8 @@ export default getRequestConfig(async () => {
   const cookieStore = await cookies();
   let locale = cookieStore.get("locale")?.value;
   let cookie = cookieStore.get("authToken")?.value;
-  console.log("locale", locale);
-  console.log("Cookie", cookie);
+  console.log("locale::", locale);
+  console.log("Cookie::", cookie);
 
   try {
     const messages = (await import(`../../messages/${locale}.json`)).default;
