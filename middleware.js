@@ -35,7 +35,7 @@ export async function middleware(request) {
   // const dashboardPath = path === "/dashboard";
   // const startSelling = path === "/startSelling";
 
-  const cookies = request.cookies.get("refreshToken")?.value;
+  const cookies = request.cookies.get("authToken")?.value;
   //  const cookies =
   //  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhleUBnbWFpbC5jb20iLCJfaWQiOiI2ODA2NDc3YjIyMDgxN2Y1MWJiN2I0OTYiLCJpYXQiOjE3NDUzMTkyNzYsImV4cCI6MTc0NTkyNDA3Nn0.98SBzGstzB_1zPT1DOsG7MZIdWzh6gW1AwpikrrAy3Y";
 
